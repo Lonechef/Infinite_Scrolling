@@ -5,8 +5,10 @@ import './App.css';
 const App = () => {
   return (
     <div className="App">
-      <h1>Infinite Scroll</h1>
+      <h1>Infinite Scroll Mock Project </h1>
+      
       <InfiniteScrollComp />
+      
     </div>
   );
 };

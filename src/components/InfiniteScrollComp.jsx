@@ -14,7 +14,7 @@ const InfiniteScrollComp = () => {
         setLoading(true);
         try {
             //Axios to fetch data from the API
-            const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=20`);
+            const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=10`);
             if (response.data.length > 0) {
                 //Spread operator to fetch prev data
                 setPosts(prevPosts => [...prevPosts, ...response.data]);
@@ -26,7 +26,7 @@ const InfiniteScrollComp = () => {
         }
         setLoading(false);
     };
-
+    //useEffect used fro optimization so there is no re-render evytimw
     useEffect(() => {
         if (hasMore) {
             fetchPosts();
@@ -34,9 +34,11 @@ const InfiniteScrollComp = () => {
     }, [page, hasMore]);
 
     const handleScroll = useCallback(() => {
+        //Tohandle scrolling  by using useCallback hook
         if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100 && !loading && hasMore) {
             setPage(prevPage => prevPage + 1);
         }
+        //loading and hasMOre both are depedecies required for useCallback hook
     }, [loading, hasMore]);
 
     useEffect(() => {
